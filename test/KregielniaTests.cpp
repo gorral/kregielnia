@@ -5,7 +5,7 @@ struct KregielniaTests : public ::testing::Test
 {
 };
 
-TEST_F(KregielniaTests, assertThatTravis-ciBuildStatusIsPass)
+TEST_F(KregielniaTests, assertThatTravisCiBuildStatusIsPass)
 {
     ASSERT_TRUE(true);
 }
