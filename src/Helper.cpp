@@ -9,9 +9,11 @@ bool Helper::CreateTestFiles()
     fs::path p1;
     p1 /= INPUT_FILES_DIRECTORY;
 
+
     // Create first test file
     std::cout<<"File 'TestFile_1' is created" << std::endl;
-    std::ofstream testfile1(p1 /= "TestFile_1.txt");
+    p1 /= "TestFile_1.txt";
+    std::ofstream testfile1(p1);
     testfile1 << "Name1:X|4-|3"  << std::endl;
     testfile1 << "Name2:34|X|0-" << std::endl;
     testfile1 << ":X|22|33"      << std::endl;
