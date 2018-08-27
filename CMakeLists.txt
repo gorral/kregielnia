@@ -42,12 +42,14 @@ project(Kregielnia)
 set(SRC_LIST
     src/Kregielnia.hpp
     src/Kregielnia.cpp
+    src/Helper.hpp
+    src/Helper.cpp
 )
 
 include_directories(src)
 add_library(${PROJECT_NAME}-lib ${SRC_LIST})
 add_executable(${PROJECT_NAME} src/main.cpp)
-target_link_libraries(${PROJECT_NAME} ${PROJECT_NAME}-lib)
+target_link_libraries(${PROJECT_NAME} ${PROJECT_NAME}-lib stdc++fs)
 
 
 set(TEST_SRC_LIST
@@ -57,4 +59,4 @@ set(TEST_SRC_LIST
 
 link_libraries(gtest)
 add_executable(${PROJECT_NAME}-ut ${TEST_SRC_LIST})
-target_link_libraries(${PROJECT_NAME}-ut ${PROJECT_NAME}-lib)
+target_link_libraries(${PROJECT_NAME}-ut ${PROJECT_NAME}-lib stdc++fs)
