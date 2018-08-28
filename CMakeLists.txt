@@ -42,8 +42,8 @@ project(Kregielnia)
 set(SRC_LIST
     src/Kregielnia.hpp
     src/Kregielnia.cpp
-    src/Helper.hpp
-    src/Helper.cpp
+    src/TestFileSupport.hpp
+    src/TestFileSupport.cpp
 )
 
 include_directories(src)

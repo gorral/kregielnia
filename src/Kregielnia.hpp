@@ -1,5 +1,5 @@
 #pragma once
-#include "Helper.hpp"
+#include "TestFileSupport.hpp"
 
 class Kregielnia
 {};

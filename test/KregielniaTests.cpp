@@ -12,35 +12,30 @@ TEST_F(KregielniaTests, assertThatTravisCiBuildStatusIsPass)
 
 TEST_F(KregielniaTests, assertThatCanCreateTestFiles)
 {
-    bool result = true;
-    fs::path p1;
-    p1 /= Helper::INPUT_FILES_DIRECTORY;
+    const std::string inputfiles_directory = "test_files";
+    fs::path testfile_path = fs::current_path() /= inputfiles_directory;
+
     // GIVEN
-    result &= not fs::is_directory(p1);
+    ASSERT_FALSE(fs::is_directory(testfile_path));
     // WHEN
-    Helper::CreateTestFiles();
+    ASSERT_TRUE(TestFileSupport::CreateTestFiles(inputfiles_directory));
     // THEN
-    result &= fs::is_directory(p1);
-    result &= not fs::is_empty(p1);
+    ASSERT_TRUE(fs::is_directory(testfile_path));
+    ASSERT_FALSE(fs::is_empty(testfile_path));
 
-    Helper::RemoveTestFiles();
-    ASSERT_TRUE(result);
-
+    TestFileSupport::RemoveTestFiles(inputfiles_directory);
 }
 
 TEST_F(KregielniaTests, assertThatCanRemoveTestFiles)
 {
-    bool result = true;
+    const std::string inputfiles_directory = "test_files";
     // GIVEN
-    Helper::CreateTestFiles();
-    fs::path p1;
-    p1 /= Helper::INPUT_FILES_DIRECTORY;
-    result &= not fs::is_empty(p1);
-    result &= fs::is_directory(p1);
+    TestFileSupport::CreateTestFiles(inputfiles_directory);
+    fs::path testfile_path = fs::current_path() /= inputfiles_directory;
+    ASSERT_FALSE(fs::is_empty(testfile_path));
+    ASSERT_TRUE(fs::is_directory(testfile_path));
     // WHEN
-    result = Helper::RemoveTestFiles();
+    ASSERT_TRUE(TestFileSupport::RemoveTestFiles(inputfiles_directory));
     // THEN
-    result &= not fs::is_directory(p1);
-
-    ASSERT_TRUE(result);
+    ASSERT_FALSE(fs::is_directory(testfile_path));
 }

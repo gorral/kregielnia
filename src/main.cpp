@@ -1,11 +1,12 @@
 #include <iostream>
 #include "Kregielnia.hpp"
-#include "Helper.hpp"
+#include "TestFileSupport.hpp"
 
 int main()
 {
-    Helper::CreateTestFiles();
-    Helper::RemoveTestFiles();
+    const std::string inputfiles_directory = "test_files";
+    TestFileSupport::CreateTestFiles(inputfiles_directory);
+    TestFileSupport::RemoveTestFiles(inputfiles_directory);
 
     std::cout << "Kregielnia!" << std::endl;
     return 0;
