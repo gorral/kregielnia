@@ -42,8 +42,6 @@ project(Kregielnia)
 set(SRC_LIST
     src/Kregielnia.hpp
     src/Kregielnia.cpp
-    src/TestFileSupport.hpp
-    src/TestFileSupport.cpp
 )
 
 include_directories(src)
@@ -53,6 +51,9 @@ target_link_libraries(${PROJECT_NAME} ${PROJECT_NAME}-lib stdc++fs)
 
 
 set(TEST_SRC_LIST
+    test/InputFile.hpp
+    test/InputFile.cpp
+    test/InputFileTests.cpp
     test/KregielniaTests.cpp
     test/test_main.cpp
 )
