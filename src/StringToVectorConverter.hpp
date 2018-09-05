@@ -8,9 +8,10 @@
 std::vector<int> ConvertStringToVector(std::string str){
 
     str.erase(std::remove(str.begin(), str.end(), '|'), str.end());
+
     for(int i = 0; i < str.length(); i ++)
         if(str[i] == '/')
-            str[i] = 10 - (str[i-1]-48);
+            str[i] = (10-(str[i-1]-48))+48;
 
     std::vector<int> vec;
 
@@ -24,10 +25,8 @@ std::vector<int> ConvertStringToVector(std::string str){
                         return c - 48;
                     }else if(c == 'X') {
                         return 10;
-                    }else if(c == '/'){
-
                     }
-
+                    return 0;
                      });
 
     return vec;
