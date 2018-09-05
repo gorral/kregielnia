@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "Kregielnia.hpp"
+#include "TenPinBowling.hpp"
 
 struct KregielniaTests : public ::testing::Test
 {
