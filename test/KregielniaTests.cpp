@@ -2,6 +2,7 @@
 #include "Kregielnia.hpp"
 #include "StringToVectorConverter.hpp"
 #include <string>
+#include <numeric>
 
 struct KregielniaTests : public ::testing::Test
 {
