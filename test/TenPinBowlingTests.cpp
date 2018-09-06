@@ -1,11 +1,11 @@
 #include <gtest/gtest.h>
 #include "TenPinBowling.hpp"
 
-struct KregielniaTests : public ::testing::Test
+struct TenPinBowlingTests : public ::testing::Test
 {
 };
 
-TEST_F(KregielniaTests, assertThatTravisCiBuildStatusIsPass)
+TEST_F(TenPinBowlingTests, assertThatTravisCiBuildStatusIsPass)
 {
     ASSERT_TRUE(true);
 }
