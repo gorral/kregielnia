@@ -7,11 +7,9 @@ struct KregielniaTests : public ::testing::Test
 {
 };
 
-int sumVector(std::vector<int> vec){
-    int sum = 0;
-    for(auto i : vec)
-        sum += i;
-    return sum;
+int sumVector(std::vector<int> vec)
+{
+    return std::accumulate(vec.begin(), vec.end(), 0);
 }
 
 TEST_F(KregielniaTests, assertThatTravisCiBuildStatusIsPass)
@@ -19,7 +17,7 @@ TEST_F(KregielniaTests, assertThatTravisCiBuildStatusIsPass)
     ASSERT_TRUE(true);
 }
 
-TEST_F(KregielniaTests, pojedynczaCyfra)
+TEST_F(KregielniaTests, assertSingleNumberConversion)
 {
     EXPECT_EQ(sumVector(ConvertStringToVector("0")), 0);
     EXPECT_EQ(sumVector(ConvertStringToVector("2")), 2);
@@ -27,18 +25,18 @@ TEST_F(KregielniaTests, pojedynczaCyfra)
     EXPECT_EQ(sumVector(ConvertStringToVector("8")), 8);
 }
 
-TEST_F(KregielniaTests, pojedynczyZnak)
+TEST_F(KregielniaTests, assertSingleMarkConversion)
 {
     EXPECT_EQ(sumVector(ConvertStringToVector("X")), 10);
     EXPECT_EQ(sumVector(ConvertStringToVector("-")), 0);
 }
 
-TEST_F(KregielniaTests, spare)
+TEST_F(KregielniaTests, assertSpareConversion)
 {
     EXPECT_EQ(sumVector(ConvertStringToVector("3/")), 10);
 }
 
-TEST_F(KregielniaTests, przykladyZZadania)
+TEST_F(KregielniaTests, assertExampleConversion)
 {
     EXPECT_EQ(sumVector(ConvertStringToVector("3-|X|4/|5")), 28);
     EXPECT_EQ(sumVector(ConvertStringToVector("X|4-|3")), 17);
