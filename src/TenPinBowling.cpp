@@ -2,8 +2,9 @@
 
 TenPinBowling::TenPinBowling(std::string const & name)
     :name_(name)
-    ,games_()
-{}
+{
+    games_ = {};
+}
 
 TenPinBowling::~TenPinBowling()
 {}
