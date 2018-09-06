@@ -2,22 +2,14 @@
 
 bool InputFile::Create(std::string inputfiles_directory)
 {
-    //TODO:: remove cout in release version!
-    if(fs::remove_all(inputfiles_directory)) {
-        std::cout << "Warning: old inputfiles_directory was deleted!" << std::endl;
-    } else {
-        std::cout << "Info:: Inputfiles_directory does not exist end will be created!" << std::endl;
-    }
+    fs::remove_all(inputfiles_directory);
 
     bool res = fs::create_directory(inputfiles_directory);
-    if(not res) {
-        std::cout << "Error: Can not create inputfile_directory" << std::endl;
+    if(not res)
         return false;
-    }
 
     fs::path testfile_path = fs::current_path() /= inputfiles_directory;
 
-    /* Create "TestFile_1" */
     testfile_path /= "TestFile_1.txt";
     std::ofstream testfile1(testfile_path.c_str());
     if(testfile1) {
@@ -25,17 +17,12 @@ bool InputFile::Create(std::string inputfiles_directory)
         testfile1 << "Name2:34|X|0-" << std::endl;
         testfile1 << ":X|22|33"      << std::endl;
     }
-    if(testfile1.bad()) {
-        std::cout<<"Writing to file failed"<<std::endl;
+    if(testfile1.bad())
         return false;
-    }
 
     /* Create "TestFile_xx" */
     // TODO:: Set implementation for next TestFiles!
 
-    //TODO: remove
-    for(auto& p: fs::directory_iterator(inputfiles_directory))
-        std::cout << "path: "<< p << '\n';
     return true;
 }
 
