@@ -1,6 +1,6 @@
 #include "TenPinBowling.hpp"
 
-TenPinBowling::TenPinBowling(std::string const & name)
+TenPinBowling::TenPinBowling(std::string name)
     :name_(name)
     ,games_()
 {}

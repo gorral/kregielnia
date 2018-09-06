@@ -15,7 +15,7 @@ private:
     std::string name_;
     std::vector<Game> games_;
 public:
-    TenPinBowling(std::string const & name);
+    TenPinBowling(std::string name);
     ~TenPinBowling();
     bool loadInputFiles(std::string const & path);
     int gamesCntr();
