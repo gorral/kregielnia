@@ -37,11 +37,11 @@ endif()
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-project(Kregielnia)
+project(TenPinBowling)
 
 set(SRC_LIST
-    src/Kregielnia.hpp
-    src/Kregielnia.cpp
+    src/TenPinBowling.hpp
+    src/TenPinBowling.cpp
     src/StringToVectorConverter.hpp
 )
 
@@ -55,7 +55,7 @@ set(TEST_SRC_LIST
     test/InputFile.hpp
     test/InputFile.cpp
     test/InputFileTests.cpp
-    test/KregielniaTests.cpp
+    test/TenPinBowlingTests.cpp
     test/test_main.cpp
 )
 
