@@ -11,6 +11,7 @@ TEST_F(InputFileSupportTests, assertThatCanCreateInputFiles)
     fs::path testfile_path = fs::current_path() /= inputfiles_directory;
 
     // GIVEN
+    InputFile::Remove(inputfiles_directory);
     ASSERT_FALSE(fs::is_directory(testfile_path));
     // WHEN
     ASSERT_TRUE(InputFile::Create(inputfiles_directory));
