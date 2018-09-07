@@ -2,11 +2,11 @@
 #include "InputFile.hpp"
 #include "TenPinBowling.hpp"
 
-struct TenPinBowlingTests : public ::testing::Test
+struct KregielniaTests : public ::testing::Test
 {
 };
 
-TEST_F(TenPinBowlingTests, assertThatTravisCiBuildStatusIsPass)
+TEST_F(KregielniaTests, assertThatTravisCiBuildStatusIsPass)
 {
     ASSERT_TRUE(true);
 }
