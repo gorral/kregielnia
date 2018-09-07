@@ -1,8 +1,8 @@
 #include "TenPinBowling.hpp"
 
-TenPinBowling::TenPinBowling(std::string const & name)
+TenPinBowling::TenPinBowling(std::string const & name, std::vector<Game> const & game)
     :name_(name)
-    ,games_({})
+    ,games_(game)
 {}
 
 TenPinBowling::~TenPinBowling()
