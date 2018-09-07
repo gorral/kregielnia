@@ -17,7 +17,7 @@ TEST_F(KregielniaTests, assertThatLoadInputFileFunctionReadAllFiles)
     fs::path testfile_path = fs::current_path() /= inputfiles_directory;
     int inFileCntr = 0;
 
-    TenPinBowling testgame{"My Bowling Game!"};
+    TenPinBowling testgame{"My Bowling Game!", {}};
     // GIVEN
         InputFile::Remove(inputfiles_directory);
         ASSERT_FALSE(fs::is_directory(testfile_path));
