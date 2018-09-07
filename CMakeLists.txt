@@ -42,6 +42,7 @@ project(Kregielnia)
 set(SRC_LIST
     src/Kregielnia.hpp
     src/Kregielnia.cpp
+    src/StringToVectorConverter.hpp
 )
 
 include_directories(src)
