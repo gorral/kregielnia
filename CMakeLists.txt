@@ -43,6 +43,7 @@ set(SRC_LIST
     src/Kregielnia.hpp
     src/Kregielnia.cpp
     src/StringToVectorConverter.hpp
+    src/StringToVectorConverter.cpp
 )
 
 include_directories(src)

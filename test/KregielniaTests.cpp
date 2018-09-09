@@ -43,3 +43,19 @@ TEST_F(KregielniaTests, assertExampleConversion)
     EXPECT_EQ(sumVector(ConvertStringToVector("X|4-|3")), 17);
     EXPECT_EQ(sumVector(ConvertStringToVector("34|X|0-")), 17);
 }
+
+TEST_F(KregielniaTests, assertCorrectNameExtraction)
+{
+    EXPECT_EQ(GetPlayerName("Name1:X|4-|3"), "Name1");
+    EXPECT_EQ(GetPlayerName(":X|22|33"), "");
+    EXPECT_EQ(GetPlayerName(":"), "");
+    EXPECT_EQ(GetPlayerName(""), "");
+}
+
+TEST_F(KregielniaTests, assertCorrectPointsExtractionFromGameDescription)
+{
+    EXPECT_EQ(sumVector(ConvertStringToVector("Name1:X|4-|3")), 17);
+    EXPECT_EQ(sumVector(ConvertStringToVector(":X|22|33")), 20);
+    EXPECT_EQ(sumVector(ConvertStringToVector(":")), 0);
+    EXPECT_EQ(sumVector(ConvertStringToVector("")), 0);
+}
