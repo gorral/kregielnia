@@ -1,8 +1,8 @@
 #include <iostream>
-#include "Kregielnia.hpp"
+#include "TenPinBowling.hpp"
 
 int main()
 {
-    std::cout << "Kregielnia!" << std::endl;
+    std::cout << "Ten-Pin Bowling game!" << std::endl;
     return 0;
 }

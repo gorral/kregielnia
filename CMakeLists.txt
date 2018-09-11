@@ -37,11 +37,11 @@ endif()
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-project(Kregielnia)
+project(TenPinBowling)
 
 set(SRC_LIST
-    src/Kregielnia.hpp
-    src/Kregielnia.cpp
+    src/TenPinBowling.hpp
+    src/TenPinBowling.cpp
     src/StringToVectorConverter.hpp
     src/StringToVectorConverter.cpp
 )
@@ -49,14 +49,17 @@ set(SRC_LIST
 include_directories(src)
 add_library(${PROJECT_NAME}-lib ${SRC_LIST})
 add_executable(${PROJECT_NAME} src/main.cpp)
-target_link_libraries(${PROJECT_NAME} ${PROJECT_NAME}-lib)
+target_link_libraries(${PROJECT_NAME} ${PROJECT_NAME}-lib stdc++fs)
 
 
 set(TEST_SRC_LIST
-    test/KregielniaTests.cpp
+    test/InputFile.hpp
+    test/InputFile.cpp
+    test/InputFileTests.cpp
+    test/TenPinBowlingTests.cpp
     test/test_main.cpp
 )
 
 link_libraries(gtest)
 add_executable(${PROJECT_NAME}-ut ${TEST_SRC_LIST})
-target_link_libraries(${PROJECT_NAME}-ut ${PROJECT_NAME}-lib)
+target_link_libraries(${PROJECT_NAME}-ut ${PROJECT_NAME}-lib stdc++fs)
