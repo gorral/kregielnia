@@ -20,10 +20,10 @@ bool TenPinBowling::loadInputFiles(std::string const &path)
 {
     //TODO: add error handling
     std::string filePath;
-      for (auto & p : fs::directory_iterator(path)) {
+    for (auto & p : fs::directory_iterator(path)) {
         filePath = p.path();
         games_.push_back(std::make_tuple(readFile(filePath)));
-      }
+    }
 
     return true;
 }
