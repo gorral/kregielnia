@@ -8,23 +8,26 @@ TenPinBowling::TenPinBowling(std::string const & name, std::vector<Game> const &
 TenPinBowling::~TenPinBowling()
 {}
 
-std::string readFile(std::string & path)
-{
-    std::ifstream ifsstream(path);
-    std::string fileContent( (std::istreambuf_iterator<char>(ifsstream) ),
-                               (std::istreambuf_iterator<char>()    ) );
-    return fileContent;
-}
-
 bool TenPinBowling::loadInputFiles(std::string const &path)
 {
-    //TODO: add error handling
     std::string filePath;
+    std::vector<Player> game{};
+    std::string playerName{};
+    std::vector<int> playerFrames{};
+    int score = 0;
+    enum Status status{Status::NotStarted};
     for (auto & p : fs::directory_iterator(path)) {
         filePath = p.path();
-        games_.push_back(std::make_tuple(readFile(filePath)));
-    }
+        std::ifstream fileStream(filePath);
+        for (std::string singleLine; std::getline(fileStream, singleLine); ) {
+            //TODO::cout only for debug remove in release version!
+            std::cout <<singleLine<<std::endl;
 
+            auto singlePlayer = std::make_tuple(playerName, playerFrames, score, status);
+            game.push_back(singlePlayer);
+        }
+        games_.push_back(game);
+    }
     return true;
 }
 

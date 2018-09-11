@@ -7,7 +7,19 @@
 
 namespace fs = std::experimental::filesystem;
 
-using Game = std::tuple<std::string>;
+enum class Status {
+    NotStarted,
+    InProgress,
+    Finished
+};
+
+/// \brief Player tuple fields:
+/// std::string         - playerName
+/// std::vector<int>    - playerFrames
+/// int                 - score
+/// Status              - status
+using Player = std::tuple<std::string, std::vector<int>, int, Status>;
+using Game = std::vector<Player>;
 
 class TenPinBowling
 {
