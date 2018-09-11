@@ -11,35 +11,35 @@ int lambda(char c){
     return 0;
 }
 
-std::string ExtractPointsFromString(std::string playerGame){
-    if(playerGame.find(':') != std::string::npos)
-        playerGame.erase(playerGame.begin(), std::find(std::begin(playerGame), std::end(playerGame), (':'))+1);
+std::string ExtractPointsFromString(std::string playerFrames){
+    if(playerFrames.find(':') != std::string::npos)
+        playerFrames.erase(playerFrames.begin(), std::find(std::begin(playerFrames), std::end(playerFrames), (':'))+1);
 
-    playerGame.erase(std::remove(playerGame.begin(), playerGame.end(), '|'),playerGame.end());
+    playerFrames.erase(std::remove(playerFrames.begin(), playerFrames.end(), '|'),playerFrames.end());
 
-    for(int i = 0; i < playerGame.length(); i ++)
-        if(playerGame[i] == '/')
-            playerGame[i] = *std::to_string( 10 - (static_cast<int>(playerGame[i-1]) - 48) ).c_str();
-    return playerGame;
+    for(int i = 0; i < playerFrames.length(); i ++)
+        if(playerFrames[i] == '/')
+            playerFrames[i] = *std::to_string( 10 - (static_cast<int>(playerFrames[i-1]) - 48) ).c_str();
+    return playerFrames;
 }
 
-std::vector<int> ConvertStringToVector(std::string playerGame){
+std::vector<int> ConvertStringToVector(std::string playerFrames){
 
-    playerGame = ExtractPointsFromString(playerGame);
+    playerFrames = ExtractPointsFromString(playerFrames);
 
     std::vector<int> vec;
 
-    std::transform(playerGame.begin(), playerGame.end(),
+    std::transform(playerFrames.begin(), playerFrames.end(),
                    std::back_inserter(vec),
                    [vec](char c) {return lambda(c);});
     return vec;
 }
 
-std::string GetPlayerName(std::string playerGame){
+std::string GetPlayerName(std::string playerFrames){
 
     std::string name;
-    std::copy(playerGame.begin(),
-              std::find(std::begin(playerGame), std::end(playerGame), (':')),
+    std::copy(playerFrames.begin(),
+              std::find(std::begin(playerFrames), std::end(playerFrames), (':')),
               std::back_inserter(name));
     return name;
 }

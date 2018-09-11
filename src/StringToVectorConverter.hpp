@@ -6,4 +6,4 @@
 
 std::vector<int> ConvertStringToVector(std::string str);
 
-std::string GetPlayerName(std::string playerGame);
+std::string GetPlayerName(std::string playerFrames);
