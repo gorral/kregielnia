@@ -7,14 +7,12 @@ using namespace boost::program_options;
 
 int main(int argc, const char *argv[])
 {
-    if(argc < 2)
-    {
+    if(argc < 2) {
         std::cerr << "You need to pass at least 1 argument" << std::endl;
         exit(-1);
     }
     std::unique_ptr<TenPinBowling> ptrBowling;
-    try
-      {
+    try {
         options_description desc{"Ten-Pin Bowling Options"};
         desc.add_options()
           ("help,h", "Help Ten-Pin Bowling Game!")
@@ -25,17 +23,17 @@ int main(int argc, const char *argv[])
         store(parse_command_line(argc, argv, desc), vm);
         notify(vm);
 
-        if (vm.count("help"))
+        if (vm.count("help")) {
             std::cout << desc << '\n';
-        else
+        } else {
             ptrBowling = std::unique_ptr<TenPinBowling>(new TenPinBowling("My Bowling Game!", {},
                                                                     vm["in_dir"].as<std::string>(),
                                                                     vm["out_result"].as<std::string>()));
+        }
         ptrBowling->loadInputFiles();
-      }
-      catch (std::logic_error & e)
-      {
+    }
+    catch (std::logic_error & e) {
         std::cerr << e.what() << '\n';
-      }
+    }
     return 0;
 }
