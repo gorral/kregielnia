@@ -22,10 +22,11 @@ TEST_F(TenPinBowlingTests, assertThatTravisCiBuildStatusIsPass)
 TEST_F(TenPinBowlingTests, assertThatLoadInputFileFunctionReadAllFiles)
 {
     const std::string inputfiles_directory = "test_files";
+    const std::string outFileName = "result.txt";
     fs::path testfile_path = fs::current_path() /= inputfiles_directory;
     int inFileCntr = 0;
 
-    TenPinBowling testgame{"My Bowling Game!", {}};
+    TenPinBowling testgame{"My Bowling Game!", {}, inputfiles_directory, outFileName};
     // GIVEN
         InputFile::Remove(inputfiles_directory);
         ASSERT_FALSE(fs::is_directory(testfile_path));
@@ -35,8 +36,9 @@ TEST_F(TenPinBowlingTests, assertThatLoadInputFileFunctionReadAllFiles)
 
         for(auto&p: fs::directory_iterator(inputfiles_directory))
             inFileCntr++;
+
     // WHEN
-    ASSERT_TRUE(testgame.loadInputFiles(testfile_path));
+    ASSERT_TRUE(testgame.loadInputFiles());
     // THEN
     ASSERT_TRUE(inFileCntr == testgame.gamesCntr());
 }
