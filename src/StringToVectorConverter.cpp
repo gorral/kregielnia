@@ -11,6 +11,18 @@ int lambda(char c){
     return 0;
 }
 
+int SumLastTwoThrows(std::string playerFrames){
+    return lambda(*playerFrames.rbegin()) + lambda(*playerFrames.rbegin()+1);
+}
+
+int CountFramesInGame(std::string playerFrames){
+    return std::count(std::begin(playerFrames), std::end(playerFrames), '|');
+}
+
+int CountThrowsInLastFrame(std::string playerFrames){
+    return std::distance(std::find(std::rbegin(playerFrames), std::rend(playerFrames), '|'), std::rbegin(playerFrames));
+}
+
 std::string ExtractPointsFromString(std::string playerFrames){
     if(playerFrames.find(':') != std::string::npos)
         playerFrames.erase(playerFrames.begin(), std::find(std::begin(playerFrames), std::end(playerFrames), (':'))+1);
@@ -42,4 +54,20 @@ std::string GetPlayerName(std::string playerFrames){
               std::find(std::begin(playerFrames), std::end(playerFrames), (':')),
               std::back_inserter(name));
     return name;
+}
+
+int CheckStatusForPlayer(std::string playerFrames){
+    if(playerFrames.length() > 0){
+        if(CountFramesInGame(playerFrames) == 9 && CountThrowsInLastFrame(playerFrames) == -2 && SumLastTwoThrows(playerFrames) < 10)
+                return 2;
+
+        if(CountFramesInGame(playerFrames) == 11 &&
+            ((CountThrowsInLastFrame(playerFrames) == -1 && *playerFrames.rbegin() != 'X') ||
+                    CountThrowsInLastFrame(playerFrames) == -2))
+                return 2;
+
+        return 1;
+    }
+
+    return 0;
 }
