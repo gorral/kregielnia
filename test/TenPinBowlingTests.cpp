@@ -9,7 +9,7 @@ struct TenPinBowlingTests : public ::testing::Test
 {
 };
 
-int sumVector(std::vector<int> vec)
+int sumVector(std::vector<int> const &vec)
 {
     return std::accumulate(vec.begin(), vec.end(), 0);
 }
@@ -78,7 +78,8 @@ TEST_F(TenPinBowlingTests, assertCorrectPointsExtractionFromGameDescription)
     EXPECT_EQ(sumVector(ConvertStringToVector("")), 0);
 }
 
-TEST_F(TenPinBowlingTests, assertCorrectGameStatusForOneLine){
+TEST_F(TenPinBowlingTests, assertCorrectGameStatusForOneLine)
+{
     EXPECT_EQ(CheckStatusForPlayer(""), 0);
     EXPECT_EQ(CheckStatusForPlayer(":"), 1);
     EXPECT_EQ(CheckStatusForPlayer(":1"), 1);

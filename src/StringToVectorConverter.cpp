@@ -1,6 +1,7 @@
 #include "StringToVectorConverter.hpp"
 
-int lambda(char c){
+int lambda(char c)
+{
     if(c == '-'){
         return 0;
     }else if(std::isdigit(c) ){
@@ -11,44 +12,54 @@ int lambda(char c){
     return 0;
 }
 
-int SumLastTwoThrows(std::string playerFrames){
+int SumLastTwoThrows(std::string const & playerFrames)
+{
     return lambda(*playerFrames.rbegin()) + lambda(*playerFrames.rbegin()+1);
 }
 
-int CountFramesInGame(std::string playerFrames){
+int CountFramesInGame(std::string const & playerFrames)
+{
     return std::count(std::begin(playerFrames), std::end(playerFrames), '|');
 }
 
-int CountThrowsInLastFrame(std::string playerFrames){
+int CountThrowsInLastFrame(std::string const & playerFrames)
+{
     return std::distance(std::find(std::rbegin(playerFrames), std::rend(playerFrames), '|'), std::rbegin(playerFrames));
 }
 
-std::string ExtractPointsFromString(std::string playerFrames){
-    if(playerFrames.find(':') != std::string::npos)
-        playerFrames.erase(playerFrames.begin(), std::find(std::begin(playerFrames), std::end(playerFrames), (':'))+1);
-
-    playerFrames.erase(std::remove(playerFrames.begin(), playerFrames.end(), '|'),playerFrames.end());
-
-    for(int i = 0; i < playerFrames.length(); i ++)
-        if(playerFrames[i] == '/')
-            playerFrames[i] = *std::to_string( 10 - (static_cast<int>(playerFrames[i-1]) - 48) ).c_str();
-    return playerFrames;
+char CompliteSpare(char firstThrow)
+{
+    return *std::to_string( 10 - (static_cast<int>(firstThrow) - 48) ).c_str();
 }
 
-std::vector<int> ConvertStringToVector(std::string playerFrames){
+std::string ExtractPointsFromString(std::string const & playerFrames)
+{
+    std::string str = playerFrames;
+    if(str.find(':') != std::string::npos)
+        str.erase(str.begin(), std::find(std::begin(str), std::end(str), (':'))+1);
 
-    playerFrames = ExtractPointsFromString(playerFrames);
+    str.erase(std::remove(str.begin(), str.end(), '|'),str.end());
+
+    for(int i = 0; i < str.length(); i ++)
+        if(str[i] == '/')
+            str[i] = CompliteSpare(str[i-1]);
+    return str;
+}
+
+std::vector<int> ConvertStringToVector(std::string playerFrames)
+{
+    std::string str = ExtractPointsFromString(playerFrames);
 
     std::vector<int> vec;
 
-    std::transform(playerFrames.begin(), playerFrames.end(),
+    std::transform(str.begin(), str.end(),
                    std::back_inserter(vec),
                    [vec](char c) {return lambda(c);});
     return vec;
 }
 
-std::string GetPlayerName(std::string playerFrames){
-
+std::string GetPlayerName(std::string playerFrames)
+{
     std::string name;
     std::copy(playerFrames.begin(),
               std::find(std::begin(playerFrames), std::end(playerFrames), (':')),
