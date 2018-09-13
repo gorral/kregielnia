@@ -1,16 +1,16 @@
 #include "InputFile.hpp"
 
-bool InputFile::Create(std::string const &inputfiles_directory)
+bool InputFile::Create(fs::path const &inputDirectoryPath)
 {
-    fs::remove_all(inputfiles_directory);
+    fs::path testfile_path;
+    fs::remove_all(inputDirectoryPath);
 
-    bool res = fs::create_directory(inputfiles_directory);
+    bool res = fs::create_directory(inputDirectoryPath);
     if(not res) {
         return false;
     }
 
-    fs::path testfile_path = fs::current_path() /= inputfiles_directory;
-
+    testfile_path = inputDirectoryPath;
     testfile_path /= "TestFile_1.txt";
     std::ofstream testfile1(testfile_path.c_str());
     if(testfile1) {
@@ -22,7 +22,7 @@ bool InputFile::Create(std::string const &inputfiles_directory)
         return false;
     }
 
-    testfile_path = fs::current_path() /= inputfiles_directory;
+    testfile_path = inputDirectoryPath;
     testfile_path /= "TestFile_2.txt";
     std::ofstream testfile2(testfile_path.c_str());
     if(testfile2) {
@@ -37,7 +37,7 @@ bool InputFile::Create(std::string const &inputfiles_directory)
     return true;
 }
 
-bool InputFile::Remove(std::string const &inputfiles_directory)
+bool InputFile::Remove(fs::path const &inputDirectoryPath)
 {   
-    return fs::remove_all(inputfiles_directory);
+    return fs::remove_all(inputDirectoryPath);
 }
