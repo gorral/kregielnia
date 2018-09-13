@@ -46,7 +46,7 @@ std::string ExtractPointsFromString(std::string const & playerFrames)
     return str;
 }
 
-std::vector<int> ConvertStringToVector(std::string playerFrames)
+std::vector<int> ConvertStringToVector(std::string const & playerFrames)
 {
     std::string str = ExtractPointsFromString(playerFrames);
 
@@ -58,7 +58,7 @@ std::vector<int> ConvertStringToVector(std::string playerFrames)
     return vec;
 }
 
-std::string GetPlayerName(std::string playerFrames)
+std::string GetPlayerName(std::string const &playerFrames)
 {
     std::string name;
     std::copy(playerFrames.begin(),
@@ -67,7 +67,8 @@ std::string GetPlayerName(std::string playerFrames)
     return name;
 }
 
-int CheckStatusForPlayer(std::string playerFrames){
+int CheckStatusForPlayer(std::string const & playerFrames)
+{
     if(playerFrames.length() > 0){
         if(CountFramesInGame(playerFrames) == 9 && CountThrowsInLastFrame(playerFrames) == -2 && SumLastTwoThrows(playerFrames) < 10)
                 return 2;
