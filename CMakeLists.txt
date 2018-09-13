@@ -39,6 +39,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 project(TenPinBowling)
 
+add_subdirectory(boost-cmake)
+
 set(SRC_LIST
     src/TenPinBowling.hpp
     src/TenPinBowling.cpp
@@ -49,7 +51,7 @@ include_directories(src)
 add_library(${PROJECT_NAME}-lib ${SRC_LIST})
 add_executable(${PROJECT_NAME} src/main.cpp)
 target_link_libraries(${PROJECT_NAME} ${PROJECT_NAME}-lib stdc++fs)
-
+target_link_libraries(${PROJECT_NAME}-lib PUBLIC Boost::program_options)
 
 set(TEST_SRC_LIST
     test/InputFile.hpp

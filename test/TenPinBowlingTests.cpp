@@ -21,22 +21,23 @@ TEST_F(TenPinBowlingTests, assertThatTravisCiBuildStatusIsPass)
 
 TEST_F(TenPinBowlingTests, assertThatLoadInputFileFunctionReadAllFiles)
 {
-    const std::string inputfiles_directory = "test_files";
-    fs::path testfile_path = fs::current_path() /= inputfiles_directory;
+    const std::string inputDirectoryPath = "test_files";
+    const fs::path outputFilePath = "result.txt";
     int inFileCntr = 0;
 
-    TenPinBowling testgame{"My Bowling Game!", {}};
+    TenPinBowling testgame{"My Bowling Game!", {}, inputDirectoryPath, outputFilePath};
     // GIVEN
-        InputFile::Remove(inputfiles_directory);
-        ASSERT_FALSE(fs::is_directory(testfile_path));
-        ASSERT_TRUE(InputFile::Create(inputfiles_directory));
-        ASSERT_TRUE(fs::is_directory(testfile_path));
-        ASSERT_FALSE(fs::is_empty(testfile_path));
+    InputFile::Remove(inputDirectoryPath);
+    ASSERT_FALSE(fs::is_directory(inputDirectoryPath));
+    ASSERT_TRUE(InputFile::Create(inputDirectoryPath));
+    ASSERT_TRUE(fs::is_directory(inputDirectoryPath));
+    ASSERT_FALSE(fs::is_empty(inputDirectoryPath));
 
-        for(auto&p: fs::directory_iterator(inputfiles_directory))
-            inFileCntr++;
+    for(auto&p: fs::directory_iterator(inputDirectoryPath)) {
+        inFileCntr++;
+    }
     // WHEN
-    ASSERT_TRUE(testgame.loadInputFiles(testfile_path));
+    ASSERT_TRUE(testgame.loadInputFiles());
     // THEN
     ASSERT_TRUE(inFileCntr == testgame.gamesCntr());
 }
