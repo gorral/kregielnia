@@ -35,8 +35,9 @@ char CompliteSpare(char firstThrow)
 std::string ExtractPointsFromString(std::string const & playerFrames)
 {
     std::string str = playerFrames;
-    if(str.find(':') != std::string::npos)
-        str.erase(str.begin(), std::find(std::begin(str), std::end(str), (':'))+1);
+    auto const pos=playerFrames.find_last_of(':');
+    if(pos != std::string::npos)
+        str.erase(str.begin(), str.begin()+pos);
 
     str.erase(std::remove(str.begin(), str.end(), '|'),str.end());
 
@@ -60,9 +61,12 @@ std::vector<int> ConvertStringToVector(std::string const & playerFrames)
 
 std::string GetPlayerName(std::string const &playerFrames)
 {
+
+    auto const pos=playerFrames.find_last_of(':');
+
     std::string name;
     std::copy(playerFrames.begin(),
-              std::find(std::begin(playerFrames), std::end(playerFrames), (':')),
+              playerFrames.begin() + pos,
               std::back_inserter(name));
     return name;
 }

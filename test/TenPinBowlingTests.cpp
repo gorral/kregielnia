@@ -76,6 +76,7 @@ TEST_F(TenPinBowlingTests, assertCorrectPointsExtractionFromGameDescription)
     EXPECT_EQ(sumVector(ConvertStringToVector(":X|22|33")), 20);
     EXPECT_EQ(sumVector(ConvertStringToVector(":")), 0);
     EXPECT_EQ(sumVector(ConvertStringToVector("")), 0);
+    EXPECT_EQ(sumVector(ConvertStringToVector("N:1a-m|e/1:X|4-|3")), 17);
 }
 
 TEST_F(TenPinBowlingTests, assertCorrectGameStatusForOneLine)
@@ -93,4 +94,9 @@ TEST_F(TenPinBowlingTests, assertCorrectGameStatusForOneLine)
     EXPECT_EQ(CheckStatusForPlayer("Name2:00|00|00|00|00|00|00|00|00|55||"), 1);
     EXPECT_EQ(CheckStatusForPlayer("Name2:00|00|00|00|00|00|00|00|00|55||5"), 2);
     EXPECT_EQ(CheckStatusForPlayer("Name2:00|00|00|00|00|00|00|00|00|55||55"), 2);
+}
+TEST_F(TenPinBowlingTests, assertCorrectNameExtractionIfContainsColon)
+{
+    EXPECT_EQ(GetPlayerName("Name:1:X|4-|3"), "Name:1");
+    EXPECT_EQ(GetPlayerName("N:1a-m|e/1:X|4-|3"), "N:1a-m|e/1");
 }
