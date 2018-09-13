@@ -1,15 +1,16 @@
 #include "InputFile.hpp"
 
-bool InputFile::Create(std::string const &inputfiles_directory)
+bool InputFile::Create(fs::path const &inputDirectoryPath)
 {
-    fs::remove_all(inputfiles_directory);
+    fs::path testfile_path;
+    fs::remove_all(inputDirectoryPath);
 
-    bool res = fs::create_directory(inputfiles_directory);
-    if(not res)
+    bool res = fs::create_directory(inputDirectoryPath);
+    if(not res) {
         return false;
+    }
 
-    fs::path testfile_path = fs::current_path() /= inputfiles_directory;
-
+    testfile_path = inputDirectoryPath;
     testfile_path /= "TestFile_1.txt";
     std::ofstream testfile1(testfile_path.c_str());
     if(testfile1) {
@@ -17,10 +18,11 @@ bool InputFile::Create(std::string const &inputfiles_directory)
         testfile1 << "Name2:34|X|0-" << std::endl;
         testfile1 << ":X|22|33"      << std::endl;
     }
-    if(testfile1.bad())
+    if(testfile1.bad()) {
         return false;
+    }
 
-    testfile_path = fs::current_path() /= inputfiles_directory;
+    testfile_path = inputDirectoryPath;
     testfile_path /= "TestFile_2.txt";
     std::ofstream testfile2(testfile_path.c_str());
     if(testfile2) {
@@ -28,13 +30,14 @@ bool InputFile::Create(std::string const &inputfiles_directory)
         testfile2 << "Name4:34|X|0-"  << std::endl;
         testfile2 << "Name5:23|43|51" << std::endl;
     }
-    if(testfile2.bad())
+    if(testfile2.bad()) {
         return false;
+    }
 
     return true;
 }
 
-bool InputFile::Remove(std::string const &inputfiles_directory)
+bool InputFile::Remove(fs::path const &inputDirectoryPath)
 {   
-    return fs::remove_all(inputfiles_directory);
+    return fs::remove_all(inputDirectoryPath);
 }

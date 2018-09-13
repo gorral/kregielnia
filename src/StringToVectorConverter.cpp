@@ -71,19 +71,19 @@ std::string GetPlayerName(std::string const &playerFrames)
     return name;
 }
 
-int CheckStatusForPlayer(std::string const & playerFrames)
+Status CheckStatusForPlayer(std::string const & playerFrames)
 {
     if(playerFrames.length() > 0){
         if(CountFramesInGame(playerFrames) == 9 && CountThrowsInLastFrame(playerFrames) == -2 && SumLastTwoThrows(playerFrames) < 10)
-                return 2;
+                return Status::Finished;
 
         if(CountFramesInGame(playerFrames) == 11 &&
             ((CountThrowsInLastFrame(playerFrames) == -1 && *playerFrames.rbegin() != 'X') ||
                     CountThrowsInLastFrame(playerFrames) == -2))
-                return 2;
+                return Status::Finished;
 
-        return 1;
+        return Status::InProgress;
     }
 
-    return 0;
+    return Status::NotStarted;
 }

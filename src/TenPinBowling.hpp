@@ -26,9 +26,12 @@ class TenPinBowling
 private:
     std::string name_;
     std::vector<Game> games_;
+    fs::path input_dir_path_;
+    fs::path output_file_path_;
 public:
-    TenPinBowling(std::string const & name, std::vector<Game> const & game);
+    TenPinBowling(std::string const & name, std::vector<Game> const & game,
+                  fs::path const & input_dir_path, fs::path const & output_file_path);
     ~TenPinBowling();
-    bool loadInputFiles(std::string const & path);
+    bool loadInputFiles();
     int gamesCntr();
 };
