@@ -45,6 +45,7 @@ set(SRC_LIST
     src/TenPinBowling.hpp
     src/TenPinBowling.cpp
     src/StringToVectorConverter.hpp
+    src/StringToVectorConverter.cpp
 )
 
 include_directories(src)

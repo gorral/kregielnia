@@ -9,7 +9,7 @@ struct TenPinBowlingTests : public ::testing::Test
 {
 };
 
-int sumVector(std::vector<int> vec)
+int sumVector(std::vector<int> const &vec)
 {
     return std::accumulate(vec.begin(), vec.end(), 0);
 }
@@ -63,4 +63,42 @@ TEST_F(TenPinBowlingTests, assertExampleConversion)
     EXPECT_EQ(sumVector(ConvertStringToVector("3-|X|4/|5")), 28);
     EXPECT_EQ(sumVector(ConvertStringToVector("X|4-|3")), 17);
     EXPECT_EQ(sumVector(ConvertStringToVector("34|X|0-")), 17);
+}
+TEST_F(TenPinBowlingTests, assertCorrectNameExtraction)
+{
+    EXPECT_EQ(GetPlayerName("Name1:X|4-|3"), "Name1");
+    EXPECT_EQ(GetPlayerName(":X|22|33"), "");
+    EXPECT_EQ(GetPlayerName(":"), "");
+    EXPECT_EQ(GetPlayerName(""), "");
+}
+TEST_F(TenPinBowlingTests, assertCorrectPointsExtractionFromGameDescription)
+{
+    EXPECT_EQ(sumVector(ConvertStringToVector("Name1:X|4-|3")), 17);
+    EXPECT_EQ(sumVector(ConvertStringToVector(":X|22|33")), 20);
+    EXPECT_EQ(sumVector(ConvertStringToVector(":")), 0);
+    EXPECT_EQ(sumVector(ConvertStringToVector("")), 0);
+    EXPECT_EQ(sumVector(ConvertStringToVector("N:1a-m|e/1:X|4-|3")), 17);
+}
+
+TEST_F(TenPinBowlingTests, assertCorrectGameStatusForOneLine)
+{
+    EXPECT_EQ(CheckStatusForPlayer(""), Status::NotStarted);
+    EXPECT_EQ(CheckStatusForPlayer(":"), Status::InProgress);
+    EXPECT_EQ(CheckStatusForPlayer(":1"), Status::InProgress);
+    EXPECT_EQ(CheckStatusForPlayer(":X|22|33"), Status::InProgress);
+    EXPECT_EQ(CheckStatusForPlayer("Name1:X|4-|3"), Status::InProgress);
+    EXPECT_EQ(CheckStatusForPlayer("Name2:00|00|00|00|00|00|00|00|00|00"), Status::Finished);
+    EXPECT_EQ(CheckStatusForPlayer("Name2:00|00|00|00|00|00|00|00|00|0"), Status::InProgress);
+    EXPECT_EQ(CheckStatusForPlayer("Name2:00|00|00|00|00|00|00|00|00|55"), Status::InProgress);
+    EXPECT_EQ(CheckStatusForPlayer("Name2:00|00|00|00|00|00|00|00|00|54"), Status::Finished);
+    EXPECT_EQ(CheckStatusForPlayer("Name2:00|00|00|00|00|00|00|00|00|X"), Status::InProgress);
+    EXPECT_EQ(CheckStatusForPlayer("Name2:00|00|00|00|00|00|00|00|00|55||"), Status::InProgress);
+    EXPECT_EQ(CheckStatusForPlayer("Name2:00|00|00|00|00|00|00|00|00|55||5"), Status::Finished);
+    EXPECT_EQ(CheckStatusForPlayer("Name2:00|00|00|00|00|00|00|00|00|55||55"), Status::Finished);
+}
+
+TEST_F(TenPinBowlingTests, assertCorrectNameExtractionIfContainsColon)
+{
+    EXPECT_EQ(GetPlayerName("Name:1:X|4-|3"), "Name:1");
+    EXPECT_EQ(GetPlayerName("N:1a-m|e/1:X|4-|3"), "N:1a-m|e/1");
 }
