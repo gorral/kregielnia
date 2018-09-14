@@ -34,4 +34,5 @@ public:
     ~TenPinBowling();
     bool loadInputFiles();
     int gamesCntr();
+    bool validPlayer(std::string const & str);
 };
