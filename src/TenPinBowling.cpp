@@ -52,6 +52,6 @@ int TenPinBowling::gamesCntr()
 
 bool TenPinBowling::validPlayer(std::string const & str)
 {
-    std::regex pattern("(\\w*)(:)(([\\dX/-]{1,2})([|])?){0,10}([||]([\\dX/-]{1,2})?)?");
+    std::regex pattern("(\\w*)(:)(((([\\dX/-]{1,2})([|])?){0,10})|((([\\dX/-]{1,2})([|])?){10}([||]([\\dX/-]{1,2})?)?))");
     return std::regex_match(str, pattern);
 }
