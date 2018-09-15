@@ -3,6 +3,7 @@
 #include <vector>
 #include <iostream>
 #include <fstream>
+#include <algorithm>
 #include <experimental/filesystem>
 
 namespace fs = std::experimental::filesystem;
@@ -33,6 +34,9 @@ public:
                   fs::path const & input_dir_path, fs::path const & output_file_path);
     ~TenPinBowling();
     bool loadInputFiles();
-    int gamesCntr();
-    bool validPlayer(std::string const & str);
+    int gamesCounter();
+    bool isValidPlayer(std::string const & str);
+    std::vector<int> getPlayerFrame(std::string const & playerFrames);
+    std::string getPlayerName(std::string const &playerFrames);
+    Status getPlayerStatus(const std::string &playerFrames);
 };
