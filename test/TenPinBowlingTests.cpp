@@ -102,3 +102,30 @@ TEST_F(TenPinBowlingTests, assertCorrectNameExtractionIfContainsColon)
     EXPECT_EQ(GetPlayerName("Name:1:X|4-|3"), "Name:1");
     EXPECT_EQ(GetPlayerName("N:1a-m|e/1:X|4-|3"), "N:1a-m|e/1");
 }
+
+TEST_F(TenPinBowlingTests, assertValidPlayer)
+{
+    TenPinBowling testgame{"My Bowling Game!", {}, "", ""};
+    ASSERT_FALSE(testgame.validPlayer(""));
+    ASSERT_TRUE(testgame.validPlayer(":"));
+    ASSERT_TRUE(testgame.validPlayer("name:"));
+    ASSERT_FALSE(testgame.validPlayer("na$e:"));
+    ASSERT_TRUE(testgame.validPlayer("name:-"));
+    ASSERT_TRUE(testgame.validPlayer("name:X"));
+    ASSERT_TRUE(testgame.validPlayer("name:/"));
+    ASSERT_TRUE(testgame.validPlayer("name:-X"));
+    ASSERT_TRUE(testgame.validPlayer("name:XX"));
+    ASSERT_TRUE(testgame.validPlayer("name:/X"));
+    ASSERT_FALSE(testgame.validPlayer("name:a"));
+    ASSERT_TRUE(testgame.validPlayer("name:3"));
+    ASSERT_TRUE(testgame.validPlayer("name:11|"));
+    ASSERT_TRUE(testgame.validPlayer("name:11|XX"));
+    ASSERT_FALSE(testgame.validPlayer("name:11|XX||"));
+    ASSERT_TRUE(testgame.validPlayer("name:11|XX|2-"));
+    ASSERT_FALSE(testgame.validPlayer("name:11|XX|2-||"));
+    ASSERT_TRUE(testgame.validPlayer("name:11|XX|33|44|55|66|77|88|99|00||"));
+    ASSERT_FALSE(testgame.validPlayer("name:11|XX|33|44|55|66|77|88|99|00|||"));
+    ASSERT_TRUE(testgame.validPlayer("name:11|XX|33|44|55|66|77|88|99|00||X"));
+    ASSERT_TRUE(testgame.validPlayer("name:11|XX|33|44|55|66|77|88|99|00||X8"));
+    ASSERT_FALSE(testgame.validPlayer("name:11|XX|33|44|55|66|77|88|99|00||X8X"));
+}

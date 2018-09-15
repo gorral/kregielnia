@@ -1,5 +1,6 @@
 #include "TenPinBowling.hpp"
 #include <stdexcept>
+#include <regex>
 
 TenPinBowling::TenPinBowling(std::string const & name, std::vector<Game> const & game,
                              fs::path const & input_dir_path, fs::path const & output_file_path)
@@ -29,11 +30,15 @@ bool TenPinBowling::loadInputFiles()
         filePath = p.path();
         std::ifstream fileStream(filePath);
         for (std::string singleLine; std::getline(fileStream, singleLine); ) {
-            //TODO::cout only for debug remove in release version!
-            std::cout <<singleLine<<std::endl;
+            if(validPlayer(singleLine)) {
+                //TODO::cout only for debug remove in release version!
+                std::cout <<singleLine<<std::endl;
 
-            auto singlePlayer = std::make_tuple(playerName, playerFrames, score, status);
-            game.push_back(singlePlayer);
+                auto singlePlayer = std::make_tuple(playerName, playerFrames, score, status);
+                game.push_back(singlePlayer);
+            } else {
+                throw std::logic_error("Error: Invalid InputFile!");
+            }
         }
         games_.push_back(game);
     }
@@ -43,4 +48,10 @@ bool TenPinBowling::loadInputFiles()
 int TenPinBowling::gamesCntr()
 {
     return games_.size();
+}
+
+bool TenPinBowling::validPlayer(std::string const & str)
+{
+    std::regex pattern("(\\w*)(:)(((([\\dX/-]{1,2})([|])?){0,10})|((([\\dX/-]{1,2})([|])?){10}([||]([\\dX/-]{1,2})?)?))");
+    return std::regex_match(str, pattern);
 }
