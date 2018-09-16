@@ -39,6 +39,7 @@ bool TenPinBowling::loadInputFiles()
             }
         }
         games_.push_back(game);
+        game.clear();
     }
     return true;
 }
@@ -142,26 +143,26 @@ Status TenPinBowling::getPlayerStatus(std::string const & playerFrames)
     return Status::NotStarted;
 }
 
-std::string TenPinBowling::getLaneStatus(int gameIdx)
+std::string getLaneStatus(Game& game)
 {
-        if (std::all_of(games_[gameIdx].begin(), games_[gameIdx].end(),
-                        [&](Player& p){ return std::get<3>(p) == Status::NotStarted; })) {
+    if (std::all_of(game.begin(), game.end(),
+        [&](Player& p){ return std::get<3>(p) == Status::NotStarted; })) {
 
-            return "game not started";
-        }
-        else if (std::all_of(games_[gameIdx].begin(), games_[gameIdx].end(),
-                             [&](Player& p){ return std::get<3>(p) == Status::Finished; })) {
+            return "no game";
+    }
+    else if (std::all_of(game.begin(), game.end(),
+        [&](Player& p){ return std::get<3>(p) == Status::Finished; })) {
 
             return "game finished";
-        }
-        else return "game in progress";
+    }
+    else return "game in progress";
 }
 
 void TenPinBowling::consoleOutput()
 {
     for (int i = 0; i < games_.size(); i++) {
         std::cout <<"## " << "Lane " << i+1 << ": "
-                  << getLaneStatus(i)
+                  << getLaneStatus(games_[i])
                   << " ##" << std::endl;
         for (int p = 0; p < games_[i].size(); p++) {
             std::cout << std::get<0>(games_[i][p]) << " "

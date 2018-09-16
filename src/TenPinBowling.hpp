@@ -22,6 +22,8 @@ enum class Status {
 using Player = std::tuple<std::string, std::vector<int>, int, Status>;
 using Game = std::vector<Player>;
 
+std::string getLaneStatus(Game& game);
+
 class TenPinBowling
 {
 private:
@@ -39,6 +41,5 @@ public:
     std::vector<int> getPlayerFrame(std::string const & playerFrames);
     std::string getPlayerName(std::string const &playerFrames);
     Status getPlayerStatus(const std::string &playerFrames);
-    std::string getLaneStatus(int gameIdx);
     void consoleOutput();
 };
