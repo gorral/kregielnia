@@ -166,8 +166,8 @@ TEST_F(TenPinBowlingTests, assertCorrectStatusForEachLane)
 
 TEST_F(TenPinBowlingTests, assertCorrectFileOutput)
 {
-    const std::string inputDirectoryPath = "test_files2";
-    const fs::path outputFilePath = "result.txt";
+    const std::string inputDirectoryPath = "../test/test_files/test_files_in";
+    const fs::path outputFilePath = "../test/test_files/result.txt";
 
     TenPinBowling testgame{"My Bowling Game!", {}, inputDirectoryPath, outputFilePath};
 
