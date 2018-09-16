@@ -158,15 +158,33 @@ std::string getLaneStatus(Game& game)
     else return "game in progress";
 }
 
-void TenPinBowling::consoleOutput()
+void TenPinBowling::outputResults(bool isPrintOnConsoleRequest)
 {
-    for (int i = 0; i < games_.size(); i++) {
-        std::cout <<"## " << "Lane " << i+1 << ": "
-                  << getLaneStatus(games_[i])
-                  << " ##" << std::endl;
-        for (int p = 0; p < games_[i].size(); p++) {
-            std::cout << std::get<0>(games_[i][p]) << " "
-                      << std::get<2>(games_[i][p]) << std::endl;
+    if (isPrintOnConsoleRequest == true) {
+        for (int i = 0; i < games_.size(); i++) {
+            std::cout <<"## " << "Lane " << i+1 << ": "
+                      << getLaneStatus(games_[i])
+                      << " ##" << std::endl;
+            for (int p = 0; p < games_[i].size(); p++) {
+                std::cout << std::get<0>(games_[i][p]) << " "
+                          << std::get<2>(games_[i][p]) << std::endl;
+            }
         }
+    }
+    else {
+        std::fstream file;
+        file.open(output_file_path_, std::ios::out);
+
+        for (int i = 0; i < games_.size(); i++) {
+            file << "## " << "Lane " << i+1 << ": "
+                      << getLaneStatus(games_[i])
+                      << " ##" << std::endl;
+            for (int p = 0; p < games_[i].size(); p++) {
+                file << std::get<0>(games_[i][p]) << " "
+                          << std::get<2>(games_[i][p]) << std::endl;
+            }
+        }
+
+        file.close();
     }
 }

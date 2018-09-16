@@ -32,10 +32,7 @@ int main(int argc, const char *argv[])
         }
         ptrBowling->loadInputFiles();
 
-        if (argc == 3) {
-            ptrBowling->consoleOutput();
-        }
-
+        ptrBowling->outputResults(argc == 3);
     }
     catch (std::logic_error & e) {
         std::cerr << e.what() << '\n';

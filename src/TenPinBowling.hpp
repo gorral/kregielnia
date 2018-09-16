@@ -41,5 +41,5 @@ public:
     std::vector<int> getPlayerFrame(std::string const & playerFrames);
     std::string getPlayerName(std::string const &playerFrames);
     Status getPlayerStatus(const std::string &playerFrames);
-    void consoleOutput();
+    void outputResults(bool isPrintOnConsoleRequest);
 };
