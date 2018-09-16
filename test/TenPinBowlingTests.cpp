@@ -175,10 +175,10 @@ TEST_F(TenPinBowlingTests, assertCorrectFileOutput)
     testgame.outputResults(false);
 
     std::string outputString[6];
-    outputString[0] = "## Lane 1: game in progress ##";
+    outputString[0] = "## Lane 1: game finished ##";
     outputString[1] = "A 20";
     outputString[2] = "B 20";
-    outputString[3] = "## Lane 2: game finished ##";
+    outputString[3] = "## Lane 2: game in progress ##";
     outputString[4] = outputString[1];
     outputString[5] = outputString[2];
 
