@@ -163,3 +163,30 @@ TEST_F(TenPinBowlingTests, assertCorrectStatusForEachLane)
     EXPECT_EQ(getLaneStatus(g2), "game finished");
     EXPECT_EQ(getLaneStatus(g3), "game in progress");
 }
+
+TEST_F(TenPinBowlingTests, assertCorrectFileOutput)
+{
+    const std::string inputDirectoryPath = "test_files2";
+    const fs::path outputFilePath = "result.txt";
+
+    TenPinBowling testgame{"My Bowling Game!", {}, inputDirectoryPath, outputFilePath};
+
+    testgame.loadInputFiles();
+    testgame.outputResults(false);
+
+    std::string outputString[6];
+    outputString[0] = "## Lane 1: game in progress ##";
+    outputString[1] = "A 20";
+    outputString[2] = "B 20";
+    outputString[3] = "## Lane 2: game finished ##";
+    outputString[4] = outputString[1];
+    outputString[5] = outputString[2];
+
+
+    std::ifstream fileStream(outputFilePath);
+    int it = 0;
+    for (std::string singleLine; std::getline(fileStream, singleLine); ) {
+        EXPECT_EQ(singleLine, outputString[it]);
+        it++;
+    }
+}
