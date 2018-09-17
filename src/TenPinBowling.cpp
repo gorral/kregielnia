@@ -15,7 +15,6 @@ TenPinBowling::~TenPinBowling()
 
 bool TenPinBowling::loadInputFiles()
 {
-    std::string filePath;
     std::vector<Player> game{};
     std::string playerName{};
     std::vector<int> playerFrames{};
@@ -25,9 +24,15 @@ bool TenPinBowling::loadInputFiles()
     if (not fs::is_directory(input_dir_path_) or fs::is_empty(input_dir_path_)) {
         throw std::logic_error("There is lack of input files!");
     }
+
+    std::vector<std::string> filePaths;
     for (auto & p : fs::directory_iterator(input_dir_path_)) {
 
-        filePath = p.path();
+        filePaths.push_back(p.path());
+    }
+    std::sort(filePaths.begin(), filePaths.end());
+
+    for(auto & filePath: filePaths) {
         std::ifstream fileStream(filePath);
         for (std::string singleLine; std::getline(fileStream, singleLine); ) {
             if(isValidPlayer(singleLine)) {
