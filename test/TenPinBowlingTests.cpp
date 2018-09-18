@@ -144,3 +144,49 @@ TEST_F(TenPinBowlingTests, assertValidPlayer)
     ASSERT_TRUE(testgame.isValidPlayer("name:11|XX|33|44|55|66|77|88|99|00||X8"));
     ASSERT_FALSE(testgame.isValidPlayer("name:11|XX|33|44|55|66|77|88|99|00||X8X"));
 }
+
+TEST_F(TenPinBowlingTests, assertCorrectStatusForEachLane)
+{
+    std::vector<int> frames = {};
+    Player p1("A", frames, 12, Status::InProgress);
+    Player p2("A", frames, 12, Status::InProgress);
+    Game g1, g2, g3;
+    g1.push_back(p1); g1.push_back(p2);
+    std::get<3>(p1) = Status::Finished;
+    std::get<3>(p2) = Status::Finished;
+    g2.push_back(p1); g2.push_back(p2);
+    std::get<3>(p1) = Status::InProgress;
+    std::get<3>(p2) = Status::Finished;
+    g3.push_back(p1); g3.push_back(p2);
+
+    EXPECT_EQ(getLaneStatus(g1), "game in progress");
+    EXPECT_EQ(getLaneStatus(g2), "game finished");
+    EXPECT_EQ(getLaneStatus(g3), "game in progress");
+}
+
+TEST_F(TenPinBowlingTests, assertCorrectFileOutput)
+{
+    const std::string inputDirectoryPath = "../test/test_files/test_files_in";
+    const fs::path outputFilePath = "../test/test_files/result.txt";
+
+    TenPinBowling testgame{"My Bowling Game!", {}, inputDirectoryPath, outputFilePath};
+
+    testgame.loadInputFiles();
+    testgame.outputResults(false);
+
+    std::string outputString[6];
+    outputString[0] = "## Lane 1: game finished ##";
+    outputString[1] = "A 20";
+    outputString[2] = "B 20";
+    outputString[3] = "## Lane 2: game in progress ##";
+    outputString[4] = outputString[1];
+    outputString[5] = outputString[2];
+
+
+    std::ifstream fileStream(outputFilePath);
+    int it = 0;
+    for (std::string singleLine; std::getline(fileStream, singleLine); ) {
+        EXPECT_EQ(singleLine, outputString[it]);
+        it++;
+    }
+}

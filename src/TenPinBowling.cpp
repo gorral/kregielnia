@@ -36,16 +36,15 @@ bool TenPinBowling::loadInputFiles()
         std::ifstream fileStream(filePath);
         for (std::string singleLine; std::getline(fileStream, singleLine); ) {
             if(isValidPlayer(singleLine)) {
-                //TODO::cout only for debug remove in release version!
-                std::cout <<singleLine<<std::endl;
-
-                auto singlePlayer = std::make_tuple(playerName, playerFrames, score, status);
+                auto singlePlayer = std::make_tuple(getPlayerName(singleLine), getPlayerFrame(singleLine),
+                                                    20, getPlayerStatus(singleLine));
                 game.push_back(singlePlayer);
             } else {
                 throw std::logic_error("Error: Invalid InputFile!");
             }
         }
         games_.push_back(game);
+        game.clear();
     }
     return true;
 }
@@ -147,4 +146,50 @@ Status TenPinBowling::getPlayerStatus(std::string const & playerFrames)
     }
 
     return Status::NotStarted;
+}
+
+std::string getLaneStatus(Game& game)
+{
+    if (std::all_of(game.begin(), game.end(),
+        [&](Player& p){ return std::get<3>(p) == Status::NotStarted; })) {
+
+            return "no game";
+    }
+    else if (std::all_of(game.begin(), game.end(),
+        [&](Player& p){ return std::get<3>(p) == Status::Finished; })) {
+
+            return "game finished";
+    }
+    else return "game in progress";
+}
+
+void TenPinBowling::outputResults(bool isPrintOnConsoleRequest)
+{
+    if (isPrintOnConsoleRequest == true) {
+        for (int i = 0; i < games_.size(); i++) {
+            std::cout <<"## " << "Lane " << i+1 << ": "
+                      << getLaneStatus(games_[i])
+                      << " ##" << std::endl;
+            for (int p = 0; p < games_[i].size(); p++) {
+                std::cout << std::get<0>(games_[i][p]) << " "
+                          << std::get<2>(games_[i][p]) << std::endl;
+            }
+        }
+    }
+    else {
+        std::fstream file;
+        file.open(output_file_path_, std::ios::out);
+
+        for (int i = 0; i < games_.size(); i++) {
+            file << "## " << "Lane " << i+1 << ": "
+                      << getLaneStatus(games_[i])
+                      << " ##" << std::endl;
+            for (int p = 0; p < games_[i].size(); p++) {
+                file << std::get<0>(games_[i][p]) << " "
+                          << std::get<2>(games_[i][p]) << std::endl;
+            }
+        }
+
+        file.close();
+    }
 }

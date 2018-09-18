@@ -1,0 +1,6 @@
+## Lane 1: game finished ##
+A 20
+B 20
+## Lane 2: game in progress ##
+A 20
+B 20

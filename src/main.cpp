@@ -31,6 +31,8 @@ int main(int argc, const char *argv[])
                                                                     vm["out_result"].as<std::string>()));
         }
         ptrBowling->loadInputFiles();
+
+        ptrBowling->outputResults(argc == 3);
     }
     catch (std::logic_error & e) {
         std::cerr << e.what() << '\n';
