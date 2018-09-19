@@ -188,12 +188,11 @@ TEST_F(TenPinBowlingTests, assertCorrectFileOutput)
 
     std::string outputString[6];
     outputString[0] = "## Lane 1: game finished ##";
-    outputString[1] = "A 20";
-    outputString[2] = "B 20";
+    outputString[1] = "A 15";
+    outputString[2] = "B 9";
     outputString[3] = "## Lane 2: game in progress ##";
-    outputString[4] = outputString[1];
-    outputString[5] = outputString[2];
-
+    outputString[4] = "C 24";
+    outputString[5] = "D 17";
 
     std::ifstream fileStream(outputFilePath);
     int it = 0;
