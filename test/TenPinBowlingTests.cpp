@@ -13,11 +13,6 @@ int sumVector(std::vector<int> const &vec)
     return std::accumulate(vec.begin(), vec.end(), 0);
 }
 
-TEST_F(TenPinBowlingTests, assertThatTravisCiBuildStatusIsPass)
-{
-    ASSERT_TRUE(true);
-}
-
 TEST_F(TenPinBowlingTests, assertThatLoadInputFileFunctionReadAllFiles)
 {
     const std::string inputDirectoryPath = "test_files";
