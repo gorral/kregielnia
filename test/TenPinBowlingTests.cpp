@@ -140,6 +140,23 @@ TEST_F(TenPinBowlingTests, assertValidPlayer)
     ASSERT_FALSE(testgame.isValidPlayer("name:11|XX|33|44|55|66|77|88|99|00||X8X"));
 }
 
+TEST_F(TenPinBowlingTests, assertCorrectScoreCalculation)
+{
+    TenPinBowling testgame{"My Bowling Game!", {}, "", ""};
+    EXPECT_EQ(testgame.calculateScore(testgame.getPlayerFrame("")) , 0);
+    EXPECT_EQ(testgame.calculateScore(testgame.getPlayerFrame("name:")) , 0);
+    EXPECT_EQ(testgame.calculateScore(testgame.getPlayerFrame("name:1")) , 1);
+    EXPECT_EQ(testgame.calculateScore(testgame.getPlayerFrame("Name2:11|11|11|11|11|11|11|11|11|11")) , 20);
+    EXPECT_EQ(testgame.calculateScore(testgame.getPlayerFrame("Name2:X|5")) , 20);
+    EXPECT_EQ(testgame.calculateScore(testgame.getPlayerFrame("Name2:55|5")) , 20);
+    EXPECT_EQ(testgame.calculateScore(testgame.getPlayerFrame("Name2:X")) , 10);
+    EXPECT_EQ(testgame.calculateScore(testgame.getPlayerFrame("Name2:X|X")) , 30);
+    EXPECT_EQ(testgame.calculateScore(testgame.getPlayerFrame("Name2:X|X|X")) , 60);
+    EXPECT_EQ(testgame.calculateScore(testgame.getPlayerFrame("Name2:X|X|X|X|X|X|X|X|X|X||XX")) , 300);
+    EXPECT_EQ(testgame.calculateScore(testgame.getPlayerFrame("Name2:5/|5/|5/|5/|5/|5/|5/|5/|5/|5/||5")) , 150);
+    EXPECT_EQ(testgame.calculateScore(testgame.getPlayerFrame("Name2:X|7/|9-|X|-8|8/|-6|X|X|X||81")) , 167);
+}
+
 TEST_F(TenPinBowlingTests, assertCorrectStatusForEachLane)
 {
     std::vector<int> frames = {};
