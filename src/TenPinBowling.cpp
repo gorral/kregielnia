@@ -97,7 +97,7 @@ std::string ExtractPointsFromString(std::string const & playerFrames)
     std::string str = playerFrames;
     auto const pos=playerFrames.find_last_of(':');
     if(pos != std::string::npos)
-        str.erase(str.begin(), str.begin()+pos);
+        str.erase(str.begin(), str.begin()+pos+1);
 
     str.erase(std::remove(str.begin(), str.end(), '|'),str.end());
 
@@ -146,6 +146,42 @@ Status TenPinBowling::getPlayerStatus(std::string const & playerFrames)
     }
 
     return Status::NotStarted;
+}
+
+int TenPinBowling::calculateScore(const std::vector<int> &vec)
+{
+    if(vec.size() == 1)
+        return vec[0];
+    int sum=0;
+    int frames = 1;
+    for(int i = 0; i < vec.size(); i++) {
+        if(vec[i] == 10) {
+            if(i==vec.size()-1 && frames<=10) {
+                sum+=vec[i];
+            }
+            else if(i==vec.size()-2 && frames<=10) {
+                sum+=vec[i]+vec[i+1];
+            }
+            else if(i<vec.size()-2) {
+                sum+=vec[i]+vec[i+1]+vec[i+2];
+            }
+            frames++;
+        }
+        else if(i<vec.size()-2 && vec[i]+vec[i+1] == 10 && frames<=10) {
+            sum+= vec[i] + vec[i+1] + vec[i+2];
+            i++;
+            frames++;
+        }
+        else if(i<vec.size()-2 && frames<=10) {
+            sum+=vec[i] + vec[i+1];
+            i++;
+            frames++;
+        }
+        else if(frames<=10) {
+            sum+=vec[i];
+        }
+    }
+    return sum;
 }
 
 std::string getLaneStatus(Game& game)
