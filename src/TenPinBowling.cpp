@@ -37,7 +37,7 @@ bool TenPinBowling::loadInputFiles()
         for (std::string singleLine; std::getline(fileStream, singleLine); ) {
             if(isValidPlayer(singleLine)) {
                 auto singlePlayer = std::make_tuple(getPlayerName(singleLine), getPlayerFrame(singleLine),
-                                                    20, getPlayerStatus(singleLine));
+                                                    calculateScore(getPlayerFrame(singleLine)), getPlayerStatus(singleLine));
                 game.push_back(singlePlayer);
             } else {
                 throw std::logic_error("Error: Invalid InputFile!");
@@ -150,34 +150,34 @@ Status TenPinBowling::getPlayerStatus(std::string const & playerFrames)
 
 int TenPinBowling::calculateScore(const std::vector<int> &vec)
 {
-    if(vec.size() == 1)
+    if (vec.size() == 1)
         return vec[0];
     int sum=0;
     int frames = 1;
-    for(int i = 0; i < vec.size(); i++) {
+    for (int i = 0; i < vec.size(); i++) {
         if(vec[i] == 10) {
-            if(i==vec.size()-1 && frames<=10) {
-                sum+=vec[i];
+            if (i == vec.size()-1 && frames <= 10) {
+                sum += vec[i];
             }
-            else if(i==vec.size()-2 && frames<=10) {
-                sum+=vec[i]+vec[i+1];
+            else if (i == vec.size() - 2 && frames <= 10) {
+                sum += vec[i] + vec[i+1];
             }
-            else if(i<vec.size()-2) {
-                sum+=vec[i]+vec[i+1]+vec[i+2];
+            else if (i < vec.size() - 2) {
+                sum += vec[i] + vec[i+1] + vec[i+2];
             }
             frames++;
         }
-        else if(i<vec.size()-2 && vec[i]+vec[i+1] == 10 && frames<=10) {
-            sum+= vec[i] + vec[i+1] + vec[i+2];
+        else if (i<vec.size()-2 && vec[i]+vec[i+1] == 10 && frames<=10) {
+            sum += vec[i] + vec[i+1] + vec[i+2];
             i++;
             frames++;
         }
-        else if(i<vec.size()-2 && frames<=10) {
-            sum+=vec[i] + vec[i+1];
+        else if (i<vec.size()-2 && frames<=10) {
+            sum += vec[i] + vec[i+1];
             i++;
             frames++;
         }
-        else if(frames<=10) {
+        else if (frames <= 10) {
             sum+=vec[i];
         }
     }
